@@ -5,12 +5,11 @@ public class Main {
         iniciarPrograma();
 
     }
-
     public static void iniciarPrograma() {
         boolean b;
         do {
             mostrarMenu();
-            b = elegirOpcion(ingresarOpcion());
+            b = elegirOpcion();
 
         } while (!b);
     }
@@ -31,57 +30,95 @@ public class Main {
         return teclado.next();
     }
 
-    public static boolean elegirOpcion(String seleccionOpcion) {
+    public static boolean elegirOpcion() {
         boolean b;
-        switch (seleccionOpcion) {
-            case "1": {
-                System.out.println("Usted ha seleccionado ingresar datos");
-                b = true;
-                ingresarDatos();
-                break;
-            }
-            case "2": {
-                System.out.println("Usted ha seleccionado mostrar sismo de mayor magnitud");
-                b = true;
-                mostrarSismoMayorLongitud();
-                break;
-            }
-            case "3":{
-                System.out.println("Usted ha seleccionado contar sismos");
-                b = true;
-                contarSismos();
-                break;
-            }
-            case "4":{
-                System.out.println("Usted ha seleccionado enviar SMS");
-                b = true;
-                enviarSMS();
-                break;
-            }
-            case "5":{
-                b = true;
-                System.out.println("El programa ha finalizado");
-                break;
-            }
-            default: {
-                System.out.println("opcion no valida");
-                b = false;
-                break;
-            }
+        String seleccionOpcion;
+        int c = 0;
+            do {
+               mostrarMenu();
+                seleccionOpcion = ingresarOpcion();
+                switch (seleccionOpcion) {
 
-        }
+                    case "1": {
+                        System.out.println("Usted ha seleccionado ingresar datos");
+                        b = true;
+                        for (int i = 0; i < datos().length; i++) {
+                            System.out.println("Sismos " + datos()[i]);
+                        }
+                        c=1;
+                        break;
+
+                    }
+                    case "2": {
+                        System.out.println("Usted ha seleccionado mostrar sismo de mayor magnitud");
+                        b = true;
+                        System.out.println("el mayor es " + buscarMayorSismo(datos()));
+                        c=1;
+                        break;
+                    }
+                    case "3": {
+                        System.out.println("Usted ha seleccionado contar sismos");
+                        b = true;
+                        contarSismos();
+                        c=1;
+                        break;
+                    }
+                    case "4": {
+                        System.out.println("Usted ha seleccionado enviar SMS");
+                        b = true;
+                        enviarSMS();
+                        c=1;
+                        break;
+                    }
+                    case "5": {
+                        b = true;
+                        System.out.println("El programa ha finalizado");
+                        c=2;
+                        break;
+                    }
+                    default: {
+                        System.out.println("opcion no valida");
+                        b = false;
+                        break;
+                    }
+
+
+                }
+
+            } while (c !=2);
+
         return b;
     }
 
-    private static void ingresarDatos() {
+    public static double ingresarDatos() {
+        double numero = 0;
+        numero = (double)(Math.random()*9.9);
+        return numero;
     }
 
-    private static void  mostrarSismoMayorLongitud() {
+    public static double buscarMayorSismo(double[] datos) {
+        double mayor = 0;
+        for(int i = 0; i < datos.length; i++){
+            if(mayor< datos[i]){
+            mayor = datos[i];
+        }
+        }
+        return mayor;
     }
 
-    private static void contarSismos() {
+    public static void contarSismos() {
     }
 
-    private static void enviarSMS() {
+    public static void enviarSMS() {
     }
+
+
+    public static double[] datos(){
+        double[] arr = new double[69];
+        for (int i = 0; i<arr.length;i++){
+            arr[i] = ingresarDatos();
+
+        }return arr;
+    }
+
 }
